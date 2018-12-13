@@ -123,42 +123,61 @@ public class RetirementController implements Initializable {
 
 		Retirement retired = new Retirement();
 		
-		
-
+		txtYearsToWork.setStyle("-fx-text-fill: black;");
+		txtAnnualReturnWWorking.setStyle("-fx-text-fill: black;");
+		txtYearsRetired.setStyle("-fx-text-fill: black;");
+		txtAnnualReturnWRetired.setStyle("-fx-text-fill: black;");
+		txtRequiredIncome.setStyle("-fx-text-fill: black;");
+		txtMonthlySSI.setStyle("-fx-text-fill: black;");
 
 		//checks years of working is an int
 		if (verifyTypeIntegerData(txtYearsRetired)) {
+			//System.out.println(txtYearsRetired.getText());
+			
 			//sets years of work to a Retirement variable
 			retired.setiYearsRetired(Integer.parseInt(txtYearsRetired.getText()));
+			//System.out.println(txtYearsRetired.getText());
+			
 			//checks rate while retired is an double
 			if (verifyTypeDoubleData(txtAnnualReturnWRetired)) {
+				//System.out.println(txtAnnualReturnWRetired.getText());
+				
 				//sets rate to a Retirement variable
 				retired.setdAnnualReturnRetired(Double.parseDouble(txtAnnualReturnWRetired.getText()));
+				//System.out.println(txtAnnualReturnWRetired.getText());
+				
 				//checks years of working is a reasonable value between 0-.2
 				if ((retired.getdAnnualReturnRetired() < 0) && retired.getdAnnualReturnRetired() > .20) {
 					txtAnnualReturnWRetired.setStyle("-fx-text-fill: yellow;");
 				}
+				
 				//checks if monthly income is a double
 				if (verifyTypeDoubleData(txtRequiredIncome)) {
+					//System.out.println(txtRequiredIncome.getText());
+					
 					//sets monthly income to a Retirement variable
 					retired.setdRequiredIncome(Double.parseDouble(txtRequiredIncome.getText()));
+					//System.out.println(txtRequiredIncome.getText());
+					
 					//checks if MonthlySSI is a double
 					if (verifyTypeDoubleData(txtMonthlySSI)) {
+						//System.out.println(txtMonthlySSI.getText());
+						
 						//sets monthlySSI income to a Retirement variable
 						retired.setdMonthlySSI(Double.parseDouble(txtMonthlySSI.getText()));
+						//System.out.println(txtMonthlySSI.getText());
 						
-						totalAmountToSave.setText(Double.toString(retired.TotalAmountSaved()));
-
-						//totalAmountToSave.setText(Double.toString(retired.TotalAmountSaved()));
-
+						
+						//For some reason, when it goes to the pv function in apache lib, it messes up!!!
+						totalAmountToSave.setText(Double.toString(Math.abs(retired.TotalAmountSaved())));
+						//System.out.println(totalAmountToSave.getText());
+						
 						if(verifyTypeIntegerData(txtYearsRetired)) {
 							retired.setiYearsToWork(Integer.parseInt(txtYearsToWork.getText()));
 							if (verifyTypeDoubleData(txtAnnualReturnWWorking)) {
 								retired.setdAnnualReturnWorking(Double.parseDouble(txtAnnualReturnWWorking.getText()));
 
-								//amountToSave.setText(Double.toString(retired.AmountToSave()));
-								
-								amountToSave.setText(Double.toString(retired.AmountToSave()));
+								amountToSave.setText(Double.toString(Math.abs(retired.AmountToSave())));
 							}
 						}
 					}
