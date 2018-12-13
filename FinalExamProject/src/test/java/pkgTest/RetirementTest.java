@@ -11,17 +11,15 @@ public class RetirementTest {
 	@Test
 	public void pVTest() {
 		
-		
 		int iYearsRetired = 20;
 		double annualReturnRetired = 0.02;
 		double expectedPV = 1454485.55;
-		double pMT = 10000-2642;
 		double mSSI = 2642;
 		double requiredIncome = 10000;
 		
 		Retirement retired = new Retirement();
 		retired.setdAnnualReturnRetired(annualReturnRetired);
-		retired.setdAnnualReturnRetired(iYearsRetired);
+		retired.setiYearsRetired(iYearsRetired);
 		retired.setdMonthlySSI(mSSI);
 		retired.setdRequiredIncome(requiredIncome);
 		
@@ -34,23 +32,24 @@ public class RetirementTest {
 		int iYearsRetired = 20;
 		double annualReturnRetired = 0.02;
 		double expectedPV = 1454485.55;
-		double pMT = 10000-2642;
 		double mSSI = 2642;
 		double requiredIncome = 10000;
-		int yearsToWork = 40;
-		double dAnnualReturnWorking = 0.07;
 		
 		Retirement retired = new Retirement();
+		
 		retired.setdAnnualReturnRetired(annualReturnRetired);
-		retired.setdAnnualReturnRetired(iYearsRetired);
+		retired.setiYearsRetired(iYearsRetired);
 		retired.setdMonthlySSI(mSSI);
 		retired.setdRequiredIncome(requiredIncome);
 		
-		double pmt = Math.abs(retired.TotalAmountSaved());
-		
+		int yearsToWork = 40;
+		double dAnnualReturnWorking = 0.07;
+	
 		retired.setiYearsToWork(yearsToWork);
 		retired.setdAnnualReturnWorking(dAnnualReturnWorking);		
 		
+		assertEquals(554.13,Math.abs(retired.AmountToSave()),.01);
+				
 	}
 
 }

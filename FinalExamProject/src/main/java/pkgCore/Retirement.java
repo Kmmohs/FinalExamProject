@@ -10,10 +10,11 @@ public class Retirement {
 	private double dRequiredIncome;
 	private double dMonthlySSI;
 	
+		
+	//TODO: Build the constructor, getters and setters for the attributes above.
+	
 	public Retirement(){
 	}
-	
-	//TODO: Build the contructor, getters and setters for the attributes above.
 	
 	public int getiYearsToWork() {
 		return iYearsToWork;
@@ -69,7 +70,7 @@ public class Retirement {
 		//		and Annual return while working
 		//Save Each Month
 		
-		double futureValue = Finance.fv(dAnnualReturnWorking/12, iYearsToWork*12, TotalAmountSaved(), 0);
+		double futureValue = FinanceLib.pv((dAnnualReturnRetired/12), (iYearsRetired*12), (dRequiredIncome - dMonthlySSI), 0, false);
 		return FinanceLib.pmt(dAnnualReturnWorking/12, iYearsToWork*12, 0, futureValue, false);
 		
 	}
@@ -81,6 +82,6 @@ public class Retirement {
 		//What you need saved <= PV
 		
 		return FinanceLib.pv((dAnnualReturnRetired/12), (iYearsRetired*12), (dRequiredIncome - dMonthlySSI), 0, false);
-		
+				
 	}
 }

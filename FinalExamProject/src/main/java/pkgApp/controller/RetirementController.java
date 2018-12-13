@@ -17,6 +17,20 @@ public class RetirementController implements Initializable {
 	@FXML
 	private TextField txtYearsToWork;
 	
+	@FXML
+	private TextField txtAnnualReturnWWorking;
+	
+	@FXML
+	private TextField txtYearsRetired;
+	
+	@FXML
+	private TextField txtAnnualReturnWRetired;
+	
+	@FXML
+	private TextField txtRequiredIncome;
+	
+	@FXML
+	private TextField txtMonthlySSI;
 
 	public RetirementApp getMainApp() {
 		return mainApp;
@@ -40,6 +54,7 @@ public class RetirementController implements Initializable {
 	@FXML
 	public void btnCalculate(ActionEvent event) {
 		
+		System.out.println(txtAnnualReturnWWorking.getText());
 		//	TODO: Call AmountToSave and TotalAmountSaved and populate 
 		
 	}
