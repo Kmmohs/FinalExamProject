@@ -1,6 +1,6 @@
 package pkgApp.controller;
 
-import java.awt.Label;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import pkgApp.RetirementApp;
@@ -37,18 +38,11 @@ public class RetirementController implements Initializable {
 	@FXML
 	private TextField txtMonthlySSI;
 
-	//Did not Work for me... Had to change from label to read only textField
-	//FXML
-	//private Label totalAmountToSave;
+	@FXML
+	private Label totalAmountToSave;
 
-	//FXML
-	//private Label amountToSave;
-	
 	@FXML
-	private TextField totalAmountToSave;
-	
-	@FXML
-	private TextField amountToSave;
+	private Label amountToSave;
 	
 	//Test Stuff
 //	@FXML
@@ -73,7 +67,7 @@ public class RetirementController implements Initializable {
 	@FXML
 	public void btnClear(ActionEvent event) {
 		
-		System.out.println("Clear pressed");
+		//System.out.println("Clear pressed");
 		
 		
 		txtYearsToWork.clear();
@@ -98,9 +92,9 @@ public class RetirementController implements Initializable {
 		
 		//amountToSave.setText("");
 		
-		totalAmountToSave.clear();
+		totalAmountToSave.setText("");
 		totalAmountToSave.setStyle("-fx-text-fill: black;");
-		amountToSave.clear();
+		amountToSave.setText("");
 		amountToSave.setStyle("-fx-text-fill: black;");
 		
 
@@ -169,15 +163,17 @@ public class RetirementController implements Initializable {
 						
 						
 						//For some reason, when it goes to the pv function in apache lib, it messes up!!!
-						totalAmountToSave.setText(Double.toString(Math.abs(retired.TotalAmountSaved())));
+						totalAmountToSave.setText(Double.toString(Math.abs(rnd2Deci(retired.TotalAmountSaved()))));
 						//System.out.println(totalAmountToSave.getText());
 						
 						if(verifyTypeIntegerData(txtYearsRetired)) {
 							retired.setiYearsToWork(Integer.parseInt(txtYearsToWork.getText()));
 							if (verifyTypeDoubleData(txtAnnualReturnWWorking)) {
 								retired.setdAnnualReturnWorking(Double.parseDouble(txtAnnualReturnWWorking.getText()));
-
-								amountToSave.setText(Double.toString(Math.abs(retired.AmountToSave())));
+								if ((retired.getdAnnualReturnWorking() < 0) && retired.getdAnnualReturnWorking() > .20) {
+									txtAnnualReturnWWorking.setStyle("-fx-text-fill: yellow;");
+								}
+								amountToSave.setText(Double.toString(Math.abs(rnd2Deci(retired.AmountToSave()))));
 							}
 						}
 					}
@@ -210,6 +206,10 @@ public class RetirementController implements Initializable {
 			input.setStyle("-fx-text-fill: red;");
 			return false;
 		}
+	}
+	
+	public double rnd2Deci(double numberToBeRounded) {
+		return ((double)((int)(numberToBeRounded * 100))) / 100;
 	}
 //
 //		private void clearFields() {
